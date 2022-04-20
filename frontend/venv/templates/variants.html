@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Variants</title>
+    </head>
+    <link href="{{ url_for('static',filename='css/bootstrap.css')  }}" rel="stylesheet">
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <link href="{{ url_for('static',filename='css/image-uploader.css')  }}" rel="stylesheet">
+    <script src="{{url_for('static', filename='js/image-uploader.js')}}"></script>
+    <script src="{{url_for('static', filename='js/variants.js')}}"></script>
+    <style>
+        img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
+        }
+
+        img:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+    </style>
+    <body>
+
+      <div class="container">
+        <nav class="navbar navbar-expand-sm-bg-light"> 
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link" href ="{{ url_for('products') }}">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href ="{{ url_for('variants') }}">Variants</a></li> 
+          </ul>
+        </nav>
+        <hr>
+      </div>
+
+      <div class="container">
+            <div class="row">
+                <div class="form-group form-inline">
+                    <select class="form-control" id="slcProduct"></select>
+                    <button class="btn btn-default btn-show-variants">Show Variants Data</button>
+                </div>
+            </div>
+
+            <div class="row">
+              <button class="btn btn-info pull-right btn-add-variants">Add new variant</button>
+            </div>
+            <div class="row">
+                
+                <table class="table" id="tblVariants">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Variant Name</th>
+                          <th scope="col">Size</th>
+                          <th scope="col">Color</th>
+                          <th scope="col">Created Date</th>
+                          <th scope="col">Last Update</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+      </div>
+      <div class="container">
+
+        <div class="modal fade" id="modAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" id="frmNewVariants" action="http://127.0.0.1:6100/v1/variants/addvariants" enctype="multipart/form-data">
+                    <div class="form-group form-inline">
+                        <label>Product</label>
+                        <select class="form-control" id="slcProductChoose"></select>
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Variant Name</label>
+                        <input type="text" class="form-control" id="txtVariantName" name="txtVariantName" />
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Size</label>
+                        <input type="text" class="form-control" id="txtVariantSize" name="txtVariantSize" />
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Color</label>
+                        <select id="slcColor" class="form-control">
+                            <option value="Red" selected>Red</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="Black">Black</option>
+                            <option value="Green">Green</option>
+                            <option value="White">White</option>
+                            <option value="Grey">Grey</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Images</label>
+                        <div class="input-variants-images"></div>
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-save-new-variants">Input Data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Variant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="frmEditVariant">
+                  <input type="hidden" id="txtVariantsID">
+                  <div class="form-group form-inline">
+                        <label>Product</label>
+                        <select class="form-control" id="slcProductChoose"></select><button class="btn btn-default btn-save-productchoose">Save</button>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label>Variant Name</label>
+                    <input type="text" class="form-control" id="txtVariantName" name="txtVariantName" /><button class="btn btn-success btn-save-variantname">Save</button>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label>Size</label>
+                    <input type="text" class="form-control" id="txtVariantSize" name="txtVariantSize" /><button class="btn btn-success btn-save-variantsize">Save</button>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label>Color</label>
+                    <select id="slcColor" class="form-control">
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Black">Black</option>
+                        <option value="Green">Green</option>
+                        <option value="White">White</option>
+                        <option value="Grey">Grey</option>
+                    </select>
+                    <button class="btn btn-success btn-save-variantcolor">Save</button>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modImages" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Images of Variant</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body bodyimg">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </body>
+</html>

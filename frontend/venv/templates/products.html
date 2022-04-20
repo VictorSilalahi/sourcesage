@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Products</title>
+    </head>
+    <link href="{{ url_for('static',filename='css/bootstrap.css')  }}" rel="stylesheet">
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <link href="{{ url_for('static',filename='css/image-uploader.css')  }}" rel="stylesheet">
+    <script src="{{url_for('static', filename='js/image-uploader.js')}}"></script>
+    <script src="{{url_for('static', filename='js/products.js')}}"></script>
+    <body>
+
+      <div class="container">
+        <nav class="navbar navbar-expand-sm-bg-light"> 
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link" href ="{{ url_for('products') }}">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href ="{{ url_for('variants') }}">Variants</a></li> 
+          </ul>
+        </nav>
+        <hr>
+      </div>
+      <div class="container">
+            <div class="row">
+              <button class="btn btn-info pull-right btn-add-product">Add new product</button>
+            </div>
+            <div class="row">
+                
+                <table class="table" id="tblProducts">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Product Name</th>
+                          <th scope="col">Logo</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Created Date</th>
+                          <th scope="col">Last Update</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+      </div>
+      <div class="container">
+
+        <div class="modal fade" id="modAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" id="frmNewProduct" action="http://127.0.0.1:6100/v1/products/addproduct" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" class="form-control" id="txtProductName" name="txtProductName" />
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" id="txtDescription" name="txtDescription" />
+                  </div>
+                  <div class="form-group">
+                    <label>Logo</label>
+                    <input type="file" id="inLogo" name="inLogo">
+                  </div>
+                  <div class="form-group">
+                    <label>Images</label>
+                    <div class="input-images"></div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-save-new-product">Input Data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="frmEditProduct">
+                  <input type="hidden" id="txtProductID">
+                  <div class="form-group form-inline">
+                    <label>Product Name</label>
+                    <input type="text" class="form-control" id="txtProductName" name="txtProductName" /><button class="btn btn-success btn-save-productname">Save</button>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label>Description</label>
+                    <input type="text" class="form-control" id="txtDescription" name="txtDescription" /><button class="btn btn-success btn-save-description">Save</button>
+                  </div>
+                  <div class="form-group">
+                    <label>Logo</label><br>
+                    <img id="imgLogo" class="imglogo" width="100px" height="100px" src=""><input type="file" id="uploadLogo"><button type="button" class="btn btn-default btn-updatelogo">Update Logo</button>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </body>
+</html>

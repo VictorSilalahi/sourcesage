@@ -1,0 +1,8 @@
+{
+    "hostname":"localhost",
+    "user":"sourcesage",
+    "passwd":"12345",
+    "database":"sourcesagedb",
+    "user":"sourcesage",
+    "charset":"utf8mb4"
+}
