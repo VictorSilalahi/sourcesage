@@ -38,6 +38,7 @@
                 <div class="form-group form-inline">
                     <select class="form-control" id="slcProduct"></select>
                     <button class="btn btn-default btn-show-variants">Show Variants Data</button>
+                    <button class="btn btn-info pull-right btn-add-variants">Add new variant</button>
                 </div>
             </div>
 
@@ -87,7 +88,7 @@
                 <form method="post" id="frmNewVariants" action="http://127.0.0.1:6100/v1/variants/addvariants" enctype="multipart/form-data">
                     <div class="form-group form-inline">
                         <label>Product</label>
-                        <select class="form-control" id="slcProductChoose"></select>
+                        <select class="form-control" id="slcProductToChoose"></select>
                     </div>
                     <div class="form-group form-inline">
                         <label>Variant Name</label>

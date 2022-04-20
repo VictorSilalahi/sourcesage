@@ -1,5 +1,7 @@
 $(document).ready(function()
 {
+	alert("test");
+	
 	showData("variants");
 
     $("#tblVariants tbody").html("");
@@ -293,6 +295,7 @@ function showData(type)
                 for (var i=0; i<datatemp.length; i++)
                 {
                     $("#slcProduct").prepend("<option value='"+datatemp[i]['productid']+"'>"+datatemp[i]['name']+"</option>");
+					$("#frmNewVariants #slcProductToChoose").prepend("<option value='"+datatemp[i]['productid']+"'>"+datatemp[i]['name']+"</option>");
                     $("#frmEditVariant #slcProductChoose").prepend("<option value='"+datatemp[i]['productid']+"'>"+datatemp[i]['name']+"</option>");
                 }
 			}
