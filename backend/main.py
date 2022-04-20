@@ -331,6 +331,7 @@ def addvariant():
     conn = get_db_connection()
     if conn!=None:
         cur = conn.cursor()
+        #print("call sp_addvariant('"+vName+"','"+vSize+"','"+vColor+"','"+dN+"',"+vPid+")")
         cur.execute("call sp_addvariant('"+vName+"','"+vSize+"','"+vColor+"','"+dN+"',"+vPid+")") 
         conn.commit()
         cur.execute("call sp_maxvariantid()") 
